@@ -1,0 +1,10 @@
+<h1>編集画面
+<p>
+  <form method=post enctype=#{enctype}>
+    ^{widget}
+    <div>
+      <input type=submit value="更新">
+      <input type=button value=削除 onclick="if (confirm('削除しますか?')) {this.form.command.value = 'delete';this.form.submit();}">
+<hr>
+<p>
+  <a href=@{NotifyR}>HOME

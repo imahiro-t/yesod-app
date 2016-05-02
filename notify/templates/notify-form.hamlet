@@ -1,0 +1,27 @@
+#{html}
+^{fvInput commandView}
+<dl class="required">
+  <dt>
+    <label for="subject">件名
+  <dd>
+    ^{fvInput subjectView}
+<dl class="required">
+  <dt>
+    <label for="actionDate">日付
+  <dd>
+    ^{fvInput actionDateView}
+<dl class="required">
+  <dt>
+    <label for="actionTime">時間
+  <dd>
+    ^{fvInput actionTimeView}
+<dl class="required">
+  <dt>
+    <label for="notifyBefore">通知
+  <dd>
+    ^{fvInput notifyBeforeView}
+<dl class="required">
+  <dt>
+    <label for="summary">説明
+  <dd>
+    ^{fvInput summaryView}

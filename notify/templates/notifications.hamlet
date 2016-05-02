@@ -1,0 +1,16 @@
+<h1>登録画面
+<ul>
+  $forall Entity notificationId notification <- notificationsSentNotYet
+    <li>
+      <a href=@{NotificationR notificationId}> #{notificationSubject notification}
+<hr>
+<p>
+  <form method=post enctype=#{enctype}>
+    ^{widget}
+    <div>
+      <input type=submit value="登録">
+<hr>
+<ul>
+  $forall Entity notificationId notification <- notificationsSent
+    <li>
+      <a href=@{NotificationR notificationId}> #{notificationSubject notification}
