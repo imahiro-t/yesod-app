@@ -14,7 +14,9 @@ getNotificationR :: NotificationId -> Handler Html
 getNotificationR notificationId = do
   notification <- runDB $ get404 notificationId
   ((_,widget), enctype) <- runFormPost $ notifyMForm "update" $ Just notification
-  defaultLayout $(widgetFile "notification")
+  defaultLayout $ do
+    setTitle "編集画面"
+    $(widgetFile "notification")
 
 postNotificationR :: NotificationId -> Handler Html
 postNotificationR notificationId = do
@@ -27,9 +29,8 @@ postNotificationR notificationId = do
           let localTime = LocalTime (notificationActionDate notification) (notificationActionTime notification)
           let actionDateTime =  localTimeToUTC timeZone localTime
           let notifyDateTime =  addUTCTime (-realToFrac (60*notificationNotifyBefore notification)) actionDateTime
-          runDB $ do
-            replace notificationId notification
-            update notificationId [NotificationNotifyDateTime =. notifyDateTime, NotificationSent =. False]
+          let notification' = notification {notificationNotifyDateTime = notifyDateTime, notificationSent = False}
+          runDB $ replace notificationId notification'
           setMessage $ toHtml $ "[" ++ (notificationSubject notification) ++ "]" ++ "を更新しました"
         "delete" -> do
           runDB $ delete notificationId
@@ -38,4 +39,6 @@ postNotificationR notificationId = do
       redirect $ NotifyR
     _ -> do
       setMessage $ toHtml $ ("入力に誤りがあります"::Text)
-      defaultLayout $(widgetFile "notification")
+      defaultLayout $ do
+        setTitle "編集画面"
+        $(widgetFile "notification")

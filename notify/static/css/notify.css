@@ -1,30 +1,9 @@
-body {
-    font-size: 16pt;
-    color: #000066;
-}
-button {
-    font-size: 14pt;
-    padding: 5px 20px;
-}
 h1 {
-    font-size: 20pt;
-    font-weight: bold;
-    background-color: #39445a;
-    color: #c3cee5;
-    padding: 3px;
+    background-color: #556677 !important;
+    color: #ccddee !important;
 }
 input#subject {
     width: 280px;
-    height: 30px;
-}
-input#actionDate {
-    height: 30px;
-}
-input#actionTime {
-    height: 30px;
-}
-select#notifyBefore {
-    height: 30px;
 }
 textarea#summary {
     width: 280px;
