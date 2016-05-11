@@ -29,7 +29,7 @@ postNotifyR = do
       let actionDateTime =  localTimeToUTC timeZone localTime
       let notifyDateTime =  addUTCTime (-realToFrac (60*notificationNotifyBefore notification)) actionDateTime
       let notification' = notification {notificationNotifyDateTime = notifyDateTime}
-      runDB $ insert notification'
+      _ <- runDB $ insert notification'
       setMessage $ toHtml $ "[" ++ (notificationSubject notification) ++ "]" ++ "を作成しました"
       redirect $ NotifyR
     _ -> do
