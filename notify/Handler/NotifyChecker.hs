@@ -10,6 +10,7 @@ import Network.Mail.Mime (Mail)
 import Network.Mail.SMTP
 import Data.Time.Clock
 import Data.Time.LocalTime
+import Data.Time.Format
 
 mail :: AppSettings -> Notification -> TimeZone -> Mail
 mail appSettings notification timeZone = simpleMail from to cc bcc subject [body]
@@ -37,7 +38,6 @@ mail appSettings notification timeZone = simpleMail from to cc bcc subject [body
               "\r\n" ++
               "[通知]" ++
               "\r\n" ++
---              (pack $ formatTime defaultTimeLocale "%T, %F (%Z)" (utcToZonedTime timeZone (notificationNotifyDateTime notification))) ++
               (pack $ show (utcToZonedTime timeZone (notificationNotifyDateTime notification))) ++
               "\r\n" ++
               "[説明]" ++
@@ -63,8 +63,6 @@ checkNotification :: AppSettings -> IO ()
 checkNotification appSettings = do
   forever $ do
     ct <- getCurrentTime
-    let sec = 60 :: Integer
-    let dayTimeSecondToZero = realToFrac $ (truncate $ utctDayTime ct) `div` sec * sec
-    let nt = addUTCTime (realToFrac sec) (UTCTime (utctDay ct) dayTimeSecondToZero)
-    threadDelay (truncate $ 10^(6::Integer) * (diffUTCTime nt ct))
+    let sec = read $ formatTime defaultTimeLocale "%S" ct :: Int
+    threadDelay $ (60-sec)*(10^6)
     notify appSettings
