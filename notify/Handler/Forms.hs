@@ -94,7 +94,7 @@ notifyMForm command mnotification html = do
               <*> notifyDateTimeRes
               <*> sentRes
             )
-      widget = $(widgetFile "notify-form")
+  let widget = $(widgetFile "notify-form")
   return (notificationRes, widget)
 
 notifyAForm :: Text -> Maybe Notification -> Form (Text, Notification)
